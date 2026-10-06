@@ -1,0 +1,89 @@
+# la.lpf -- pin constraints for the logic analyzer (la_top or la_top_100)
+# Lattice MachXO3 Starter Kit. Every top-level port is locked so the placer
+# can never put an output on C8 (the 12 MHz clock shared with the FTDI chip).
+#
+# Uses only header J4 pins 9-40 (bank 1, 3.3 V):
+#   pins 11, 12, 21, 22, 31, 32   GND
+#   pins 13-20                    probes 0-7
+#   pins 23-30                    probes 8-15
+#   pins 33-36                    test signals
+#   pins 9, 10, 37-40             unused
+#
+# Probe inputs are 3.3 V LVCMOS and NOT 5 V tolerant.
+
+BLOCK RESETPATHS;
+BLOCK ASYNCPATHS;
+
+# 12 MHz crystal X1 (input only)
+LOCATE COMP "i_clk_12m" SITE "C8";
+IOBUF  PORT "i_clk_12m" IO_TYPE=LVCMOS33;
+FREQUENCY PORT "i_clk_12m" 12.000000 MHz;
+
+# PC link: FT2232H channel B (R14/R15 bridged)
+LOCATE COMP "i_uart_rx" SITE "A11";
+IOBUF  PORT "i_uart_rx" IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "o_uart_tx" SITE "C11";
+IOBUF  PORT "o_uart_tx" IO_TYPE=LVCMOS33;
+
+# Probes (pull-down: unconnected channels read 0)
+LOCATE COMP "i_probe[0]" SITE "L15";   # J4 pin 13
+LOCATE COMP "i_probe[1]" SITE "L16";   # J4 pin 14
+LOCATE COMP "i_probe[2]" SITE "K14";   # J4 pin 15
+LOCATE COMP "i_probe[3]" SITE "K16";   # J4 pin 16
+LOCATE COMP "i_probe[4]" SITE "K15";   # J4 pin 17
+LOCATE COMP "i_probe[5]" SITE "J14";   # J4 pin 18
+LOCATE COMP "i_probe[6]" SITE "H14";   # J4 pin 19
+LOCATE COMP "i_probe[7]" SITE "J15";   # J4 pin 20
+LOCATE COMP "i_probe[8]" SITE "J16";   # J4 pin 23
+LOCATE COMP "i_probe[9]" SITE "H15";   # J4 pin 24
+LOCATE COMP "i_probe[10]" SITE "H16";   # J4 pin 25
+LOCATE COMP "i_probe[11]" SITE "G15";   # J4 pin 26
+LOCATE COMP "i_probe[12]" SITE "G16";   # J4 pin 27
+LOCATE COMP "i_probe[13]" SITE "F15";   # J4 pin 28
+LOCATE COMP "i_probe[14]" SITE "F16";   # J4 pin 29
+LOCATE COMP "i_probe[15]" SITE "E15";   # J4 pin 30
+IOBUF  PORT "i_probe[0]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[1]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[2]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[3]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[4]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[5]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[6]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[7]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[8]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[9]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[10]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[11]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[12]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[13]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[14]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+IOBUF  PORT "i_probe[15]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+
+# Test signals
+LOCATE COMP "o_test[0]" SITE "E16";   # J4 pin 33: 1 MHz square
+LOCATE COMP "o_test[1]" SITE "E14";   # J4 pin 34: 100 kHz square
+LOCATE COMP "o_test[2]" SITE "D16";   # J4 pin 35: UART 115200 "Hello from MachXO3!"
+LOCATE COMP "o_test[3]" SITE "C15";   # J4 pin 36: 1 kHz PWM, duty sweeps
+IOBUF  PORT "o_test[0]" IO_TYPE=LVCMOS33 DRIVE=8;
+IOBUF  PORT "o_test[1]" IO_TYPE=LVCMOS33 DRIVE=8;
+IOBUF  PORT "o_test[2]" IO_TYPE=LVCMOS33 DRIVE=8;
+IOBUF  PORT "o_test[3]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+# LEDs (active low): [0] D9 armed, [1] D8 capturing, [2] D7 sending,
+#                     [6] D3 PLL lock (100 MHz build), [7] D2 heartbeat
+LOCATE COMP "o_led_n[0]" SITE "H11";
+LOCATE COMP "o_led_n[1]" SITE "J13";
+LOCATE COMP "o_led_n[2]" SITE "J11";
+LOCATE COMP "o_led_n[3]" SITE "L12";
+LOCATE COMP "o_led_n[4]" SITE "K11";
+LOCATE COMP "o_led_n[5]" SITE "L13";
+LOCATE COMP "o_led_n[6]" SITE "N15";
+LOCATE COMP "o_led_n[7]" SITE "P16";
+IOBUF  PORT "o_led_n[0]" IO_TYPE=LVCMOS33;
+IOBUF  PORT "o_led_n[1]" IO_TYPE=LVCMOS33;
+IOBUF  PORT "o_led_n[2]" IO_TYPE=LVCMOS33;
+IOBUF  PORT "o_led_n[3]" IO_TYPE=LVCMOS33;
+IOBUF  PORT "o_led_n[4]" IO_TYPE=LVCMOS33;
+IOBUF  PORT "o_led_n[5]" IO_TYPE=LVCMOS33;
+IOBUF  PORT "o_led_n[6]" IO_TYPE=LVCMOS33;
+IOBUF  PORT "o_led_n[7]" IO_TYPE=LVCMOS33;

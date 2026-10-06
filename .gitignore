@@ -1,0 +1,25 @@
+# Simulation output
+build/
+*.vcd
+*.fst
+
+# Python
+__pycache__/
+*.pyc
+
+# Lattice Diamond: keep the project file (.ldf), sources and constraints;
+# ignore everything the tools generate.
+impl1/
+*.dir/
+*.sty
+*.xty
+.recovery
+.setting.ini
+.spread_sheet.xml
+*.html
+promote.xml
+reportview.xml
+dm/
+.run_manager.ini
+*.bak
+*.log

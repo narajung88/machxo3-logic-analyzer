@@ -1,0 +1,27 @@
+name: simulation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  testbenches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+
+      - name: 12 MHz build testbench
+        run: make sim
+
+      - name: 100 MHz build testbench (simulated PLL)
+        run: make sim100
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sim-logs
+          path: build/*.log

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaliProject version="3.2" title="machxo3_LA_lattice_diamond" device="LCMXO3LF-6900C-5BG256C" default_implementation="impl1">
+    <Options/>
+    <Implementation title="impl1" dir="impl1" description="impl1" synthesis="lse" default_strategy="Strategy1">
+        <Options def_top="la_top_100"/>
+        <Source name="rtl/la_capture.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="rtl/la_core.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="rtl/la_top_100.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="rtl/sump_cmd.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="rtl/sump_resp.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="rtl/test_gen.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="rtl/uart_rx.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="rtl/uart_tx.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="machxo3_LA_lattice_diamond.lpf" type="Logic Preference" type_short="LPF">
+            <Options/>
+        </Source>
+    </Implementation>
+    <Strategy name="Strategy1" file="machxo3_LA_lattice_diamond1.sty"/>
+</BaliProject>
