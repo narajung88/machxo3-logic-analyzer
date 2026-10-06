@@ -5,6 +5,7 @@
 A **16-channel, 100 MHz logic analyzer** built from scratch in Verilog on a Lattice MachXO3 FPGA. It speaks the SUMP / Openbench Logic Sniffer protocol over USB serial, so **PulseView (sigrok)** works as the front end out of the box, protocol decoders included.
 
 ![PulseView decoding the board's UART test signal](docs/img/pulseview-uart.png)
+![PulseView running at 100MHz](docs/img/pulseview-100mhz.png)
 
 | | |
 |---|---|
